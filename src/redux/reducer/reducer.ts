@@ -1,5 +1,5 @@
-import pricingTableData from '@/fake-data/pricing-data.json';
 import { IPricingTableDataType } from '@/utils/pricing-table-data.type';
+import pricingTableData from '../../fake-data/pricing-data.json';
 import { DECREMENT, INCREMENT } from '../actions/actions';
 
 export interface IInitialStateType {

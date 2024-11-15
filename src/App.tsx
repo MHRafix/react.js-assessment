@@ -1,6 +1,6 @@
 import { IconInfoCircle } from '@tabler/icons-react';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IInitialStateType } from './redux/reducer/reducer';
 import {
 	IPlanType,
@@ -14,13 +14,13 @@ const App = () => {
 	);
 
 	// Get dispatch function
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 
 	const [isMonthlyTab, setIsMonthlyTab] = useState<boolean>(true);
 
 	const colors = [
 		{
-			color_deep: '#4cb3fd',
+			color_deep: '#4CB3FD',
 			color_light: '#E5F2FF',
 		},
 		{
@@ -125,6 +125,7 @@ const App = () => {
 													className='select-plan-btn'
 													href='https://go.chaty.app/register'
 													target='_blank'
+													rel='noreferrer'
 												>
 													Select Plan
 												</a>
