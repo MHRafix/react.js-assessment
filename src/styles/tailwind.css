@@ -5,6 +5,35 @@
 @tailwind utilities;
 
 @layer components {
+	.container {
+		@apply lg:w-8/12 p-5 mx-auto flex items-center justify-center;
+	}
+
+	.tab_list {
+		@apply flex gap-5 justify-center;
+	}
+	.tab_active {
+		@apply text-[16px] font-bold text-[#b78deb] border-b-[2px] border-[#b78deb];
+	}
+
+	.tab_normal {
+		@apply text-[16px] font-semibold;
+	}
+	.discount_badge {
+		@apply text-[16px] font-semibold px-[12px] py-[5px] bg-[#F1EAFB] rounded-full;
+	}
+
+	.pricing_table_wrapper {
+		@apply grid md:grid-cols-2 xl:grid-cols-4 gap-5;
+	}
+
+	.pricing_table_style {
+		@apply flex flex-col bg-white border-t-[8px] border-[1px] border-[#eaeff2] py-[24px] px-[20px] rounded-md;
+	}
+
+	.select_button {
+		@apply mt-8 text-white rounded-lg px-5 py-2 w-full hover:duration-200;
+	}
 }
 
 body {
