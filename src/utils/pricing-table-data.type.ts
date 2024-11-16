@@ -16,7 +16,12 @@ export interface IPlanType {
 	title: string;
 	text: string;
 	details: IDetailsType;
+	growthPlans?: IPlanType[];
 }
+
+// export interface IPlanWithChildren extends IPlanType {
+// 	children?: IPlanType[];
+// }
 
 export interface IDetailsType {
 	'1_year': IDetails1_YearType;

@@ -13,13 +13,6 @@ const App = () => {
 		(state: IInitialStateType) => state.pricingTableData
 	);
 
-	const tempData: any[] = [];
-
-	pricingData?.plans?.map((td: IPlanType) => {
-		if (td.name === 'Growth') {
-			tempData?.push(td);
-		}
-	});
 	// Get dispatch function
 	// const dispatch = useDispatch();
 
@@ -47,8 +40,6 @@ const App = () => {
 			btn_hover_color: '#6E41A6',
 		},
 	];
-
-	console.log({ tempData });
 
 	return (
 		<div>
@@ -89,6 +80,7 @@ const App = () => {
 							))}
 						</div>
 					</div>
+					{/* <pre> {JSON.stringify(pricingData, null, 2)}</pre> */}
 				</div>
 			</div>
 		</div>
