@@ -13,10 +13,17 @@ const App = () => {
 		(state: IInitialStateType) => state.pricingTableData
 	);
 
+	const tempData: any[] = [];
+
+	pricingData?.plans?.map((td: IPlanType) => {
+		if (td.name === 'Growth') {
+			tempData?.push(td);
+		}
+	});
 	// Get dispatch function
 	// const dispatch = useDispatch();
 
-	const [isMonthlyTab, setIsMonthlyTab] = useState<boolean>(true);
+	const [isMonthlyPrice, setIsMonthlyPrice] = useState<boolean>(true);
 
 	const colors = [
 		{
@@ -41,6 +48,8 @@ const App = () => {
 		},
 	];
 
+	console.log({ tempData });
+
 	return (
 		<div>
 			<div className='container'>
@@ -48,16 +57,16 @@ const App = () => {
 					{/* tabs */}
 					<div className='tab_list'>
 						<button
-							onClick={() => setIsMonthlyTab(() => true)}
-							className={isMonthlyTab ? 'tab_active' : 'tab_normal'}
+							onClick={() => setIsMonthlyPrice(() => true)}
+							className={isMonthlyPrice ? 'tab_active' : 'tab_normal'}
 						>
 							Billed monthly
 						</button>
 						<div className='w-[1px] bg-[#c6d7e3]'></div>
 						<div className='flex gap-3'>
 							<button
-								onClick={() => setIsMonthlyTab(() => false)}
-								className={!isMonthlyTab ? 'tab_active' : 'tab_normal'}
+								onClick={() => setIsMonthlyPrice(() => false)}
+								className={!isMonthlyPrice ? 'tab_active' : 'tab_normal'}
 							>
 								Billed yearly
 							</button>
@@ -68,20 +77,17 @@ const App = () => {
 					{/* content */}
 
 					<div className='mt-8'>
-						{isMonthlyTab ? (
-							<div className='pricing_table_wrapper'>
-								{pricingData?.plans?.map((plan: IPlanType, idx: number) => (
-									<PricingTableColumnCard
-										key={idx}
-										plan={plan}
-										colors={colors[idx]}
-										features={pricingData?.features}
-									/>
-								))}
-							</div>
-						) : (
-							<div className='yearly_content'>yearly</div>
-						)}
+						<div className='pricing_table_wrapper'>
+							{pricingData?.plans?.map((plan: IPlanType, idx: number) => (
+								<PricingTableColumnCard
+									key={idx}
+									plan={plan}
+									colors={colors[idx]}
+									features={pricingData?.features}
+									isMonthlyPrice={isMonthlyPrice}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>

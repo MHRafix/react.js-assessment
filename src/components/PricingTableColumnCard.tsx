@@ -6,12 +6,14 @@ interface IPricingTableColumnCardProps {
 	plan: IPlanType;
 	colors: any;
 	features: IFeatureType[];
+	isMonthlyPrice: boolean;
 }
 
 const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 	plan,
 	colors,
 	features,
+	isMonthlyPrice,
 }) => {
 	return (
 		<div
@@ -20,26 +22,87 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 				borderTopColor: colors?.color_deep,
 			}}
 		>
-			<div className='card_header'>
-				<span className='text-[#49687e] text-[18px]'> {plan?.name}</span>
-				<h1
-					className={`leading-8 text-[32px] font-bold my-1 !text-${colors?.color_deep}`}
-					style={{
-						color: colors?.color_deep,
-					}}
-				>
-					{plan?.price}
-				</h1>
-				<div
-					className={`mt-3 text-[14px] inline-flex justify-normal items-center gap-1 px-[15px] py-[7px] rounded-full`}
-					style={{
-						backgroundColor: colors?.color_light,
-						color: colors?.color_deep,
-					}}
-				>
-					<span dangerouslySetInnerHTML={{ __html: plan?.title }}></span>
-					<IconInfoCircle className='cursor-pointer' size={19} />
+			<div className='card_header relative'>
+				{plan?.name === 'Pro' && (
+					<span className='popular__badge'>Most Popular</span>
+				)}
+				<div className='mt-4 text-[#49687e] text-[18px]'>{plan?.name}</div>
+				<div className='flex gap-3 items-end'>
+					<span
+						className={`leading-8 flex gap-3 text-[32px] font-bold my-1 !text-${colors?.color_deep}`}
+						style={{
+							color: colors?.color_deep,
+						}}
+					>
+						{isMonthlyPrice
+							? plan?.details?.['1_year']?.price
+							: plan?.details?.['2_year']?.price}
+					</span>{' '}
+					<div className='grid'>
+						{!isMonthlyPrice && plan?.name !== 'Free' && (
+							<span className='text-[red] font-normal line-through text-[12px]'>
+								{plan?.details?.['1_year']?.price}/Month
+							</span>
+						)}
+						<span className='text-sm font-normal text-[#83a1b7]'>/Month</span>
+					</div>
 				</div>
+
+				{plan?.name === 'Growth' ? (
+					<div
+						className={`mt-3 text-[14px] inline-flex justify-normal items-center gap-1 rounded-full`}
+						style={{
+							color: colors?.color_deep,
+							// display: '-webkit-inline-box',
+						}}
+					>
+						<select className='z-40 cursor-pointer outline-none text-[#B78DEB] h-[34px] leading-[34px] !py-[3px] px-[0px] border-[1px] border-solid border-[#B78DEB] rounded-md text-[14px]'>
+							<option value={'Up to <strong>150,000</strong> visitors/month'}>
+								Up to <strong>150,000</strong> visitors/month
+							</option>
+							<option value={'Up to <strong>300,000</strong> visitors/month '}>
+								Up to <strong>300,000</strong> visitors/month{' '}
+							</option>
+							<option value={'Up to <strong>500,000</strong> visitors/month '}>
+								Up to <strong>500,000</strong> visitors/month
+							</option>
+							<option
+								value={'Up to <strong>1,000,000</strong> visitors/month '}
+							>
+								Up to <strong>1,000,000</strong> visitors/month{' '}
+							</option>
+							<option
+								value={'Up to <strong>2,000,000</strong> visitors/month '}
+							>
+								Up to <strong>2,000,000</strong> visitors/month{' '}
+							</option>
+						</select>
+						<div className='tooltip'>
+							<div className='tooltip__content'>
+								<IconInfoCircle className='cursor-pointer' size={19} />
+							</div>
+							<div className='tooltip__hover'>{plan?.text}</div>
+						</div>
+					</div>
+				) : (
+					<div
+						className={`mt-3 text-[14px] justify-normal items-center gap-1 px-[15px] py-[7px] rounded-full`}
+						style={{
+							backgroundColor: colors?.color_light,
+							color: colors?.color_deep,
+							display: '-webkit-inline-box',
+						}}
+					>
+						<div dangerouslySetInnerHTML={{ __html: plan?.title }}></div>
+
+						<div className='tooltip'>
+							<div className='tooltip__content'>
+								<IconInfoCircle className='cursor-pointer' size={19} />
+							</div>
+							<div className='tooltip__hover'>{plan?.text}</div>
+						</div>
+					</div>
+				)}
 			</div>
 
 			<div className='card_content'>
@@ -48,20 +111,36 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 						? 'Free includes:'
 						: 'Everything in free plus:'}
 				</h3>
-				<ul className='grid gap-2'>
+				<ul className='grid gap-2 !relative'>
 					{plan?.name === 'Free' ? null : (
 						<li className='cursor-pointer'>
-							{plan?.title.replace('<strong>', '')?.replace('</strong>', '')}
+							<div className='tooltip'>
+								<div className='tooltip__content'>
+									<span>
+										{plan?.title
+											.replace('<strong>', '')
+											?.replace('</strong>', '')}
+									</span>
+								</div>
+								<div className='tooltip__hover'>{plan?.text}</div>
+							</div>
 						</li>
 					)}
 					{features?.map((feature: IFeatureType, idx: number) => {
 						if (plan?.name === 'Free') {
 							if (feature?.is_pro === '0') {
 								return (
-									<li key={idx} className='cursor-pointer relative'>
-										{feature?.feature_title}
-										<div className='hidden text-[14px] bg-white p-2 rounded-md absolute top-0 left-0'>
-											{feature?.feature_desc}
+									<li
+										key={idx}
+										className='features_list cursor-pointer relative inline-block'
+									>
+										<div className='tooltip'>
+											<div className='tooltip__content'>
+												<span>{feature?.feature_title}</span>
+											</div>
+											<div className='tooltip__hover'>
+												{feature?.feature_desc}
+											</div>
 										</div>
 									</li>
 								);
@@ -69,8 +148,21 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 						} else {
 							if (feature?.is_pro === '1') {
 								return (
-									<li key={idx} className='cursor-pointer'>
-										{feature?.feature_title}
+									<li
+										key={idx}
+										className='features_list cursor-pointer relative inline-block'
+									>
+										<div className='tooltip'>
+											<div className='tooltip__content'>
+												<span>{feature?.feature_title}</span>
+											</div>
+											<div
+												className='tooltip__hover'
+												dangerouslySetInnerHTML={{
+													__html: feature?.feature_desc,
+												}}
+											></div>
+										</div>
 									</li>
 								);
 							}
@@ -78,6 +170,7 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 					})}
 				</ul>
 			</div>
+
 			<div className='!mt-auto !w-full'>
 				<button
 					className={`select_button`}
