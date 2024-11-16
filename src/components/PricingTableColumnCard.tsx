@@ -3,7 +3,7 @@ import { IconInfoCircle } from '@tabler/icons-react';
 import React, { useState } from 'react';
 
 interface IPricingTableColumnCardProps {
-	plan: IPlanType;
+	plan: any;
 	colors: any;
 	features: IFeatureType[];
 	isMonthlyPrice: boolean;
@@ -29,11 +29,9 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 					<span className='popular__badge'>Most Popular</span>
 				)}
 				<div className='mt-4 text-[#49687e] text-[18px]'>
-					{plan?.growthPlans?.length
-						? plan?.growthPlans?.[planIndex]?.name
-						: plan?.name}
+					{plan?.length ? plan?.[planIndex]?.name : plan?.name}
 				</div>
-				{!plan?.growthPlans?.length ? (
+				{!plan?.length ? (
 					<div className='flex gap-3 items-end'>
 						<span
 							className={`leading-8 flex gap-3 text-[32px] font-bold my-1 !text-${colors?.color_deep}`}
@@ -63,13 +61,13 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 							}}
 						>
 							{isMonthlyPrice
-								? plan?.growthPlans?.[planIndex]?.details?.['1_year']?.price
-								: plan?.growthPlans?.[planIndex]?.details?.['2_year']?.price}
+								? plan?.[planIndex]?.details?.['1_year']?.price
+								: plan?.[planIndex]?.details?.['2_year']?.price}
 						</span>{' '}
 						<div className='grid'>
 							{!isMonthlyPrice && plan?.name !== 'Free' && (
 								<span className='text-[red] font-normal line-through text-[12px]'>
-									{plan?.growthPlans?.[planIndex]?.details?.['1_year']?.price}
+									{plan?.[planIndex]?.details?.['1_year']?.price}
 									/Month
 								</span>
 							)}
@@ -77,7 +75,7 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 						</div>
 					</div>
 				)}
-				{plan?.growthPlans?.length ? (
+				{plan?.length ? (
 					<div
 						className={`mt-3 text-[14px] inline-flex justify-normal items-center gap-1 rounded-full`}
 						style={{
@@ -87,31 +85,25 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 					>
 						<select
 							onChange={(e) => setPlanIndex(parseInt(e.target.value as string))}
-							className='z-40 cursor-pointer outline-none text-[#B78DEB] h-[34px] leading-[34px] !py-[3px] px-[0px] border-[1px] border-solid border-[#B78DEB] rounded-md text-[14px]'
+							className='z-40 cursor-pointer outline-none h-[34px] leading-[34px] !py-[3px] px-[0px] border-[1px] border-solid rounded-md text-[14px]'
+							style={{
+								borderColor: colors.color_deep,
+								color: colors.color_deep,
+							}}
 						>
-							<option value={0}>
-								Up to <strong>150,000</strong> visitors/month
-							</option>
-							<option value={1}>
-								Up to <strong>300,000</strong> visitors/month{' '}
-							</option>
-							<option value={2}>
-								Up to <strong>500,000</strong> visitors/month
-							</option>
-							<option value={3}>
-								Up to <strong>1,000,000</strong> visitors/month{' '}
-							</option>
-							<option value={4}>
-								Up to <strong>2,000,000</strong> visitors/month{' '}
-							</option>
+							{plan?.map((planDetails: IPlanType, idx: number) => (
+								<option
+									key={idx}
+									value={idx}
+									dangerouslySetInnerHTML={{ __html: planDetails?.title }}
+								></option>
+							))}
 						</select>
 						<div className='tooltip'>
 							<div className='tooltip__content'>
 								<IconInfoCircle className='cursor-pointer' size={19} />
 							</div>
-							<div className='tooltip__hover'>
-								{plan?.growthPlans?.[planIndex]?.text}
-							</div>
+							<div className='tooltip__hover'>{plan?.[planIndex]?.text}</div>
 						</div>
 					</div>
 				) : (
@@ -147,8 +139,8 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 							<div className='tooltip'>
 								<div className='tooltip__content'>
 									<span>
-										{plan?.growthPlans?.length
-											? plan?.growthPlans?.[planIndex]?.title
+										{plan?.length
+											? plan?.[planIndex]?.title
 													.replace('<strong>', '')
 													?.replace('</strong>', '')
 											: plan?.title
@@ -157,9 +149,7 @@ const PricingTableColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 									</span>
 								</div>
 								<div className='tooltip__hover'>
-									{plan?.growthPlans?.length
-										? plan?.growthPlans?.[planIndex]?.text
-										: plan?.text}
+									{plan?.length ? plan?.[planIndex]?.text : plan?.text}
 								</div>
 							</div>
 						</li>

@@ -61,7 +61,9 @@ const App = () => {
 							>
 								Billed yearly
 							</button>
-							<div className='discount_badge'>Save 20% 😍</div>
+							<div className='discount_badge'>
+								{pricingData?.plansInfo?.['2_year']?.discount}
+							</div>
 						</div>
 					</div>
 

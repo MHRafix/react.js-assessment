@@ -10,14 +10,10 @@ export interface IInitialStateType {
 	pricingTableData: IPricingTableDataType | any;
 }
 
-const { growthPlan, restPlan } = filterPricingData(
-	pricingTableData?.plans as IPlanType[]
-);
-
 // Initial state
 const initialState: IInitialStateType = {
 	pricingTableData: {
-		plans: [...restPlan, { growthPlans: growthPlan }],
+		plans: filterPricingData(pricingTableData?.plans as IPlanType[]),
 		features: pricingTableData?.features,
 		plansInfo: pricingTableData?.plansInfo,
 	},
