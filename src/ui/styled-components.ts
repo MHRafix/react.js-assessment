@@ -64,4 +64,6 @@ export const DiscountBadge = styled.div`
 	padding: 5px 12px;
 	background-color: #f1eafb;
 	border-radius: 9999px;
+	margin-bottom: 5px;
+	color: #49687e;
 `;

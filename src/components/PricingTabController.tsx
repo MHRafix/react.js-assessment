@@ -19,25 +19,23 @@ const PricingTabController: React.FC<PricingTabControllerProps> = ({
 	);
 
 	return (
-		<div className='tab_list'>
-			<TabName
-				onClick={() => onChangeIsMonthlyPrice(true)}
-				className={isMonthlyPrice ? 'tab_active' : 'aaa'}
-			>
-				Billed monthly
+		<div className='tab_list' id='tablist_responsive'>
+			<TabName onClick={() => onChangeIsMonthlyPrice(true)}>
+				<span className={isMonthlyPrice ? 'tab_active' : ''}>
+					Billed monthly
+				</span>
 			</TabName>
 			<div className='w-[1px] bg-[#c6d7e3]'></div>
-			<div className='flex gap-3'>
-				<TabName
-					onClick={() => onChangeIsMonthlyPrice(false)}
-					className={!isMonthlyPrice ? 'tab_active' : 'aaa'}
-				>
-					Billed yearly
-				</TabName>
-				<DiscountBadge>
-					{pricingData?.plansInfo?.['2_year']?.discount}
-				</DiscountBadge>
-			</div>
+			<TabName onClick={() => onChangeIsMonthlyPrice(false)}>
+				<div className='flex gap-3 justify-center items-center'>
+					<span className={!isMonthlyPrice ? 'tab_active' : ''}>
+						Billed yearly
+					</span>{' '}
+					<DiscountBadge>
+						{pricingData?.plansInfo?.['2_year']?.discount}
+					</DiscountBadge>
+				</div>
+			</TabName>
 		</div>
 	);
 };

@@ -127,3 +127,14 @@ body {
 .tooltip__content:hover + div {
 	display: block;
 }
+
+@media (max-width: 425px) {
+	#tablist_responsive {
+	}
+
+	.tab_list {
+		display: flex;
+		flex-direction: column;
+		gap: 1.25rem;
+	}
+}
