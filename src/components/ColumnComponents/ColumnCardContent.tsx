@@ -1,18 +1,23 @@
-import { IFeatureType, IPlanType } from '@/utils/pricing-table-data.type';
+import { IInitialStateType } from '@/redux/reducer/reducer';
+import { IFeatureType, IPlanType } from '@/utils/types/pricing-table-data.type';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { List, UnorderedList } from '../../ui/styled-components';
 import Tooltip from '../Tooltip';
 
 interface IColumnCardContentProps {
 	plan: IPlanType | IPlanType[] | any;
 	planIndex: number;
-	features: IFeatureType[];
 }
 const ColumnCardContent: React.FC<IColumnCardContentProps> = ({
 	plan,
-	features,
 	planIndex,
 }) => {
+	// pricingData[features] state from the redux store
+	const features: IFeatureType[] = useSelector(
+		(state: IInitialStateType) => state.pricingTableData.features
+	);
+
 	return (
 		<div className='column_content'>
 			<h3 className='text-[16px] font-semibold mt-7 mb-3'>

@@ -7,7 +7,7 @@ import { colors } from './utils/colors-variant';
 import {
 	IPlanType,
 	IPricingTableDataType,
-} from './utils/pricing-table-data.type';
+} from './utils/types/pricing-table-data.type';
 
 const App = () => {
 	// pricingData state from the redux store
@@ -26,7 +26,6 @@ const App = () => {
 					<PricingTabController
 						onChangeIsMonthlyPrice={setIsMonthlyPrice}
 						isMonthlyPrice={isMonthlyPrice}
-						pricingData={pricingData}
 					/>
 
 					{/* content */}
@@ -40,7 +39,6 @@ const App = () => {
 											key={idx}
 											plan={plan}
 											colors={colors[idx]}
-											features={pricingData?.features}
 											isMonthlyPrice={isMonthlyPrice}
 										/>
 									)

@@ -1,18 +1,23 @@
-import { IPricingTableDataType } from '@/utils/pricing-table-data.type';
+import { IInitialStateType } from '@/redux/reducer/reducer';
+import { IPricingTableDataType } from '@/utils/types/pricing-table-data.type';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { DiscountBadge, TabName } from '../ui/styled-components';
 
 interface PricingTabControllerProps {
 	onChangeIsMonthlyPrice: (state: boolean) => void;
 	isMonthlyPrice: boolean;
-	pricingData: IPricingTableDataType;
 }
 
 const PricingTabController: React.FC<PricingTabControllerProps> = ({
 	onChangeIsMonthlyPrice,
 	isMonthlyPrice,
-	pricingData,
 }) => {
+	// pricingData state from the redux store
+	const pricingData: IPricingTableDataType = useSelector(
+		(state: IInitialStateType) => state.pricingTableData
+	);
+
 	return (
 		<div className='tab_list'>
 			<TabName

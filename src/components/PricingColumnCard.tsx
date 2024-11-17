@@ -1,4 +1,3 @@
-import { IFeatureType } from '@/utils/pricing-table-data.type';
 import React, { useState } from 'react';
 import { Button } from '../ui/styled-components';
 import ColumnCardContent from './ColumnComponents/ColumnCardContent';
@@ -7,14 +6,12 @@ import ColumnCardHeader from './ColumnComponents/ColumnCardHeader';
 interface IPricingTableColumnCardProps {
 	plan: any;
 	colors: any;
-	features: IFeatureType[];
 	isMonthlyPrice: boolean;
 }
 
 const PricingColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 	plan,
 	colors,
-	features,
 	isMonthlyPrice,
 }) => {
 	// index state for multiple pricing plan column
@@ -37,11 +34,7 @@ const PricingColumnCard: React.FC<IPricingTableColumnCardProps> = ({
 			/>
 
 			{/* column content area  */}
-			<ColumnCardContent
-				plan={plan}
-				features={features}
-				planIndex={planIndex}
-			/>
+			<ColumnCardContent plan={plan} planIndex={planIndex} />
 
 			{/* column action area  */}
 			<div className='column_action'>

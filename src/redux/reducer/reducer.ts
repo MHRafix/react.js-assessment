@@ -1,7 +1,7 @@
 import {
 	IPlanType,
 	IPricingTableDataType,
-} from '@/utils/pricing-table-data.type';
+} from '@/utils/types/pricing-table-data.type';
 import pricingTableData from '../../fake-data/pricing-data.json';
 import { filterPricingData } from '../../utils/growth-data-filter';
 

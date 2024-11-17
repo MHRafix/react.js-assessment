@@ -1,50 +1,46 @@
-import { IPlanType } from './pricing-table-data.type';
+import { IPlanType } from './types/pricing-table-data.type';
 
 // pricing data filter and make as my model
 export const filterPricingData = (plans: IPlanType[]): IPlanType[] => {
-	// const growthPlan: any[] = plans?.filter(
-	// 	(plan: IPlanType) => plan?.name === 'Growth'
-	// );
-
-	const grouped: IPlanType[] = plans.reduce(
-		(acc: any, currentPlan: IPlanType) => {
+	const arrayGrouped: IPlanType[] = plans.reduce(
+		(accumulator: any, currentPlan: IPlanType) => {
 			// check any group exist for the current name
-			const group: IPlanType[] = acc.find(
+			const group: IPlanType[] = accumulator.find(
 				(item: IPlanType) =>
 					Array.isArray(item) && item[0]?.name === currentPlan.name
 			);
 
 			if (group) {
-				// If exists, push the current object into the array
+				// if exists, push the current object into the array
 				group.push(currentPlan);
 			} else {
-				// If no group exists, create a new group for the current name
-				acc.push([currentPlan]);
+				// if no group exists, create a new group for the current name
+				accumulator.push([currentPlan]);
 			}
 
-			return acc;
+			return accumulator;
 		},
 		[]
 	);
 
-	// Flatten the arrays
-	const flattened = grouped.flat();
+	// flatten the arrays
+	const flattened = arrayGrouped.flat();
 
 	// Create a new structure
-	const result: any = [];
+	const result: IPlanType[] = [];
 
-	// Create a map to handle duplicate names
+	// create a map to handle duplicate names
 	const map = new Map();
 
-	// Iterate over the flattened array
+	// iterate over the flattened array
 	flattened.forEach((item) => {
 		if (!map.has(item.name)) {
-			map.set(item.name, []); // Initialize an array for each name
+			map.set(item.name, []); // initialize an array for each name
 		}
-		map.get(item.name).push(item); // Add item to the respective array
+		map.get(item.name).push(item); // add item to the respective array
 	});
 
-	// Convert the map to the desired format
+	// convert the map to the desired format
 	map.forEach((value) => {
 		result.push(value.length === 1 ? value[0] : value);
 	});

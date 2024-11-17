@@ -1,5 +1,5 @@
 import { IColorsType } from '@/utils/colors-variant';
-import { IDetailsType, IPlanType } from '@/utils/pricing-table-data.type';
+import { IDetailsType, IPlanType } from '@/utils/types/pricing-table-data.type';
 import { IconInfoCircle } from '@tabler/icons-react';
 import React from 'react';
 import {
@@ -24,26 +24,31 @@ const ColumnCardHeader: React.FC<IColumnCardHeaderProps> = ({
 	isMonthlyPrice,
 	onChangePlanIndex,
 }) => {
+	// get price
 	const getPrice = (planDetails: IDetailsType, isMonthlyPrice: boolean) => {
 		const priceKey = isMonthlyPrice ? '1_year' : '2_year';
 		return planDetails?.[priceKey]?.price;
 	};
 
+	// get regular price
 	const getPlanRegularPrice = (planDetails: IDetailsType) => {
 		return planDetails?.['1_year']?.price;
 	};
 
-	const isFreePlan = plan?.name === 'Free'; // check is plan free
+	// check is plan free
+	const isFreePlan = plan?.name === 'Free';
 
+	// price
 	const price = getPrice(
 		plan?.length ? plan?.[planIndex]?.details : plan?.details,
 		isMonthlyPrice
 	);
 
-	const priceText = getPlanRegularPrice(
+	const regularPriceText = getPlanRegularPrice(
 		plan?.length ? plan?.[planIndex]?.details : plan?.details
 	);
 
+	// price class
 	const priceClass = `flex gap-3 ${
 		isMonthlyPrice ? 'items-baseline' : 'items-center'
 	}`;
@@ -65,7 +70,7 @@ const ColumnCardHeader: React.FC<IColumnCardHeaderProps> = ({
 				<div className='grid'>
 					{!isMonthlyPrice && !isFreePlan && (
 						<span className='regular_column_variant_price'>
-							{priceText}/Month
+							{regularPriceText}/Month
 						</span>
 					)}
 					{!isFreePlan && <span className='variant_by'>/Month</span>}
