@@ -12,13 +12,11 @@
 	.tab_list {
 		@apply flex gap-5 justify-center;
 	}
+
 	.tab_active {
 		@apply text-[16px] font-bold text-[#b78deb] border-b-[2px] border-[#b78deb];
 	}
 
-	.tab_normal {
-		@apply text-[16px] font-semibold;
-	}
 	.discount_badge {
 		@apply text-[16px] font-semibold px-[12px] py-[5px] bg-[#F1EAFB] rounded-full;
 	}
@@ -31,13 +29,29 @@
 		@apply flex flex-col bg-white border-t-[8px] border-[1px] border-[#eaeff2] py-[24px] px-[20px] rounded-md;
 	}
 
+	.regular_column_variant_price {
+		@apply text-[red] font-normal line-through text-[12px];
+	}
+
+	.variant_by {
+		@apply text-sm font-normal text-[#83a1b7];
+	}
+
+	.multiple_column_variant_dropdown {
+		@apply mt-3 text-[14px] inline-flex justify-normal items-center gap-1 rounded-full;
+	}
+
+	.tooltip__wrapper {
+		@apply mt-3 text-[14px] justify-normal items-center gap-1 px-[15px] py-[7px] rounded-full;
+	}
+
 	.select_button {
 		@apply mt-8 text-white rounded-lg px-5 py-2 w-full hover:duration-200;
 	}
 
-	/* .tooltip { */
-	/* @apply text-[14px] bg-white border-[1px] border-gray-50 p-2 rounded-md absolute top-0 left-[50%] translate-x-[-50%] whitespace-nowrap px-[10px] py-[15px] invisible opacity-0 transition-opacity duration-500 ease-in z-50;
-	} */
+	.column_action {
+		@apply !mt-auto !w-full;
+	}
 }
 
 body {
