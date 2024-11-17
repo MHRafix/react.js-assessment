@@ -2,8 +2,6 @@
 
 ## Requirements Features:
 
-========================
-
 ### Responsive UI
 
 ### Data managed by Redux
@@ -12,15 +10,11 @@
 
 ## Extra Features:
 
-==================
-
 ### TypeScript
 
 ### TailwindCSS
 
 ## Command for run the project:
-
-==============================
 
 ### pnpm install
 

@@ -15,7 +15,7 @@ const App = () => {
 		(state: IInitialStateType) => state.pricingTableData
 	);
 
-	// price tab state
+	// price tab state here
 	const [isMonthlyPrice, setIsMonthlyPrice] = useState<boolean>(true);
 
 	return (
